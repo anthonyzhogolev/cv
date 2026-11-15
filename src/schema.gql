@@ -1,0 +1,89 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Experience {
+  company: String!
+  description: String!
+
+  """null означает «по настоящее время»"""
+  endDate: DateTime
+  id: Int!
+  position: String!
+  startDate: DateTime!
+}
+
+type Profile {
+  bio: String!
+  email: String!
+  experience: [Experience!]!
+  fullName: String!
+  github: String
+  id: Int!
+  linkedin: String
+  location: String
+  phone: String
+  projects: [Project!]!
+  skills: [ProfileSkill!]!
+  telegram: String
+
+  """Должность / специализация"""
+  title: String!
+}
+
+type ProfileSkill {
+  level: SkillLevel!
+  skill: Skill!
+}
+
+type Project {
+  demoUrl: String
+  description: String!
+  id: Int!
+  name: String!
+  repoUrl: String
+  techStack: [String!]!
+}
+
+type Query {
+  """Опыт работы, от нового к старому"""
+  experiences: [Experience!]!
+
+  """Визитка целиком: профиль, опыт, навыки и проекты"""
+  profile: Profile
+
+  """Проект по id"""
+  project(id: Int!): Project
+
+  """Все проекты"""
+  projects: [Project!]!
+
+  """Справочник навыков"""
+  skills: [Skill!]!
+}
+
+type Skill {
+  category: SkillCategory!
+  id: Int!
+  name: String!
+}
+
+enum SkillCategory {
+  BACKEND
+  DATABASE
+  DEVOPS
+  FRONTEND
+  SOFT_SKILLS
+}
+
+enum SkillLevel {
+  ADVANCED
+  BEGINNER
+  EXPERT
+  INTERMEDIATE
+}

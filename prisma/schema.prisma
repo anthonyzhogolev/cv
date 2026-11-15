@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum SkillCategory {
+  BACKEND
+  FRONTEND
+  DEVOPS
+  DATABASE
+  SOFT_SKILLS
+}
+
+enum SkillLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
+}
+
+model Profile {
+  id        Int      @id @default(autoincrement())
+  fullName  String
+  title     String
+  bio       String
+  email     String   @unique
+  phone     String?
+  location  String?
+  github    String?
+  linkedin  String?
+  telegram  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  experience Experience[]
+  skills     ProfileSkill[]
+  projects   Project[]
+}
+
+model Experience {
+  id          Int       @id @default(autoincrement())
+  company     String
+  position    String
+  description String
+  startDate   DateTime
+  endDate     DateTime?
+  profileId   Int
+  profile     Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}
+
+model Skill {
+  id       Int            @id @default(autoincrement())
+  name     String         @unique
+  category SkillCategory
+
+  profiles ProfileSkill[]
+}
+
+model ProfileSkill {
+  profileId Int
+  skillId   Int
+  level     SkillLevel
+
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  skill   Skill   @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@id([profileId, skillId])
+}
+
+model Project {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  techStack   String[]
+  repoUrl     String?
+  demoUrl     String?
+  profileId   Int
+  profile     Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}

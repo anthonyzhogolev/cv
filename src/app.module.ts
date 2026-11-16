@@ -8,6 +8,7 @@ import { ProfileModule } from './profile/profile.module.js';
 import { ExperienceModule } from './experience/experience.module.js';
 import { SkillModule } from './skill/skill.module.js';
 import { ProjectModule } from './project/project.module.js';
+import { HealthController } from './health.controller.js';
 
 @Module({
   imports: [
@@ -24,5 +25,6 @@ import { ProjectModule } from './project/project.module.js';
     SkillModule,
     ProjectModule,
   ],
+  controllers: [HealthController],
 })
 export class AppModule {}

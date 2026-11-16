@@ -17,6 +17,7 @@ import { HealthController } from './health.controller.js';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
       graphiql: false,
+      introspection: true,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
     PrismaModule,

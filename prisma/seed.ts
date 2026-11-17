@@ -25,15 +25,15 @@ async function main() {
     where: { email: 'ivan.ivanov@example.com' },
     update: {},
     create: {
-      fullName: 'Иван Иванов',
-      title: 'Backend Developer (Node.js / TypeScript)',
-      bio: 'Backend-разработчик, специализируюсь на Node.js, TypeScript и проектировании API. Люблю чистую архитектуру и автоматизацию.',
-      email: 'ivan.ivanov@example.com',
-      phone: '+7 (900) 123-45-67',
-      location: 'Екатеринбург, Россия',
-      github: 'https://github.com/ivanivanov',
-      linkedin: 'https://linkedin.com/in/ivanivanov',
-      telegram: 'https://t.me/ivanivanov',
+      fullName: 'Жоголев Антон',
+      title: 'Frontend-разработчик (React, Typescript)',
+      bio: 'Frontend-разработчик, cпециализируюсь на разработке внутренних банковских сервисов. ',
+      email: 'ale7496@gmail.com',
+      phone: '+7 (917) 752-26-04',
+      location: 'Уфа, Россия',
+      github: 'https://github.com/anthonyzhogolev',
+      linkedin: 'www.linkedin.com/in/anton-zhogolev-8739b984',
+      telegram: 'https://t.me/anthonyzhogolev',
     },
   });
 
@@ -47,27 +47,27 @@ async function main() {
     data: [
       {
         profileId: profile.id,
-        company: 'ООО «ТехноСофт»',
-        position: 'Backend Developer',
-        description: 'Разработка и поддержка микросервисов на NestJS, проектирование GraphQL API, работа с PostgreSQL.',
+        company: 'Газпромбанк, АO',
+        position: 'Senior Frontend-разработчик',
+        description: 'Дашборд для сотрудников банка, и сотрудников кол-центра для обслуживания физических и юр. лиц',
         startDate: new Date('2023-06-01'),
         endDate: null,
       },
       {
         profileId: profile.id,
-        company: 'АО «Диджитал Решения»',
-        position: 'Node.js Developer',
-        description: 'Разработка REST API на Express/NestJS, интеграции с внешними сервисами, покрытие кода тестами.',
-        startDate: new Date('2021-09-01'),
+        company: 'IT_One',
+        position: 'Middle Frontend-разработчик',
+        description: '"ВТБ. Личный Кабинет" - веб-приложение банка ВТБ для управления финансами',
+        startDate: new Date('2021-06-01'),
         endDate: new Date('2023-05-31'),
       },
       {
         profileId: profile.id,
-        company: 'Стартап «АппИдея»',
-        position: 'Junior Backend Developer',
-        description: 'Участие в разработке MVP: авторизация, CRUD-сервисы, первые шаги с Docker и CI.',
-        startDate: new Date('2020-03-01'),
-        endDate: new Date('2021-08-31'),
+        company: 'Астрал-Софт',
+        position: 'Junior/Middle Frontend-разработчик',
+        description: 'веб-сервис для сдачи электронной отчетности в контролирующие органы (ФНС, СФР, Росстат)',
+        startDate: new Date('2019-02-01'),
+        endDate: new Date('2021-06-01'),
       },
     ],
   });
@@ -85,43 +85,7 @@ async function main() {
     });
   }
 
-  await prisma.project.createMany({
-    data: [
-      {
-        profileId: profile.id,
-        name: 'Цифровая визитка',
-        description: 'Backend-приложение на NestJS с GraphQL API и Prisma, автоматическое наполнение БД при запуске в Docker.',
-        techStack: ['NestJS', 'GraphQL', 'Prisma', 'PostgreSQL', 'Docker'],
-        repoUrl: 'https://github.com/ivanivanov/cv',
-        demoUrl: null,
-      },
-      {
-        profileId: profile.id,
-        name: 'Сервис уведомлений',
-        description: 'Микросервис рассылки уведомлений через email и Telegram с очередями и повторными попытками.',
-        techStack: ['Node.js', 'NestJS', 'BullMQ', 'Redis'],
-        repoUrl: 'https://github.com/ivanivanov/notifier',
-        demoUrl: null,
-      },
-      {
-        profileId: profile.id,
-        name: 'API для интернет-магазина',
-        description: 'GraphQL API каталога и заказов с фильтрацией, пагинацией и кэшированием.',
-        techStack: ['NestJS', 'GraphQL', 'PostgreSQL', 'Prisma'],
-        repoUrl: 'https://github.com/ivanivanov/shop-api',
-        demoUrl: 'https://shop-api.example.com/graphql',
-      },
-      {
-        profileId: profile.id,
-        name: 'Бот-помощник в Telegram',
-        description: 'Бот для трекинга привычек с напоминаниями и статистикой.',
-        techStack: ['TypeScript', 'grammY', 'SQLite'],
-        repoUrl: 'https://github.com/ivanivanov/habit-bot',
-        demoUrl: 'https://t.me/habit_helper_bot',
-      },
-    ],
-  });
-
+  
   console.log('Seed completed: profile, experience, skills and projects are in place.');
 }
 

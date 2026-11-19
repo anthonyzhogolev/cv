@@ -9,6 +9,7 @@ export class PrismaService
 {
   constructor() {
     super({
+      log: [{ emit: 'stdout', level: 'query' }],
       adapter: new PrismaPg({
         connectionString: process.env.DATABASE_URL,
       }),

@@ -1,7 +1,8 @@
-import { Query, Resolver } from '@nestjs/graphql';
+import { Args, Info, Int, Query, Resolver } from '@nestjs/graphql';
 import { Profile } from './profile.model.js';
 import { ProfileService } from './profile.service.js';
-
+import type { GraphQLResolveInfo } from 'graphql';
+import { PrismaSelect } from '@paljs/plugins';
 @Resolver(() => Profile)
 export class ProfileResolver {
   constructor(private readonly profileService: ProfileService) {}
@@ -10,7 +11,11 @@ export class ProfileResolver {
     nullable: true,
     description: 'Визитка целиком: профиль, опыт, навыки и проекты',
   })
-  profile() {
-    return this.profileService.getProfile();
+  profile(
+    @Info() info: GraphQLResolveInfo,
+    @Args('id', { type: () => Int, nullable: true }) id?: number,
+  ) {
+    const { select } = new PrismaSelect(info).value;
+    return this.profileService.getProfile(select, id);
   }
 }

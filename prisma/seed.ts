@@ -129,19 +129,20 @@ async function main() {
     });
   }
 
-   await prisma.project.createMany({ data: [
-    {
-      profileId: profile.id,
-      name: 'Цифровая визитка',
-      description:
-        'Backend-приложение «цифровая визитка»: GraphQL API с информацией о специалисте — профиль, опыт работы, навыки и проекты.',
-      techStack: ['NestJs','GraphQL', 'Apollo'],
-      repoUrl: null,
-      demoUrl: 'https://cv-api-svru.onrender.com/graphql',
-    },
-    
-   ] });   
-
+  await prisma.project.createMany({
+    data: [
+      {
+        profileId: profile.id,
+        name: 'Цифровая визитка',
+        description:
+          'Backend-приложение «цифровая визитка»: GraphQL API с информацией о специалисте — профиль, опыт работы, навыки и проекты.',
+        techStack: ['NestJs', 'GraphQL', 'Apollo'],
+        repoUrl: null,
+        demoUrl: 'https://cv-api-svru.onrender.com/graphql',
+      },
+    ],
+  });
+}
 main()
   .catch((error) => {
     console.error(error);

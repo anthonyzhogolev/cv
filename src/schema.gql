@@ -51,20 +51,8 @@ type Project {
 }
 
 type Query {
-  """Опыт работы, от нового к старому"""
-  experiences: [Experience!]!
-
   """Визитка целиком: профиль, опыт, навыки и проекты"""
-  profile: Profile
-
-  """Проект по id"""
-  project(id: Int!): Project
-
-  """Все проекты"""
-  projects: [Project!]!
-
-  """Справочник навыков"""
-  skills: [Skill!]!
+  profile(id: Int): Profile
 }
 
 type Skill {
@@ -75,6 +63,7 @@ type Skill {
 
 enum SkillCategory {
   BACKEND
+  COMMON
   DATABASE
   DEVOPS
   FRONTEND

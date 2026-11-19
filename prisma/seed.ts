@@ -8,17 +8,55 @@ const prisma = new PrismaClient({
 });
 
 const skills: { name: string; category: SkillCategory; level: SkillLevel }[] = [
-  { name: 'TypeScript', category: SkillCategory.BACKEND, level: SkillLevel.EXPERT },
-  { name: 'Node.js', category: SkillCategory.BACKEND, level: SkillLevel.EXPERT },
-  { name: 'NestJS', category: SkillCategory.BACKEND, level: SkillLevel.ADVANCED },
-  { name: 'GraphQL', category: SkillCategory.BACKEND, level: SkillLevel.ADVANCED },
-  { name: 'PostgreSQL', category: SkillCategory.DATABASE, level: SkillLevel.ADVANCED },
-  { name: 'Prisma', category: SkillCategory.DATABASE, level: SkillLevel.ADVANCED },
-  { name: 'Docker', category: SkillCategory.DEVOPS, level: SkillLevel.INTERMEDIATE },
+  {
+    name: 'TypeScript',
+    category: SkillCategory.COMMON,
+    level: SkillLevel.EXPERT,
+  },
+  {
+    name: 'Node.js',
+    category: SkillCategory.BACKEND,
+    level: SkillLevel.EXPERT,
+  },
+  {
+    name: 'NestJS',
+    category: SkillCategory.BACKEND,
+    level: SkillLevel.ADVANCED,
+  },
+  {
+    name: 'GraphQL',
+    category: SkillCategory.BACKEND,
+    level: SkillLevel.ADVANCED,
+  },
+  {
+    name: 'PostgreSQL',
+    category: SkillCategory.DATABASE,
+    level: SkillLevel.ADVANCED,
+  },
+  {
+    name: 'Prisma',
+    category: SkillCategory.DATABASE,
+    level: SkillLevel.ADVANCED,
+  },
+  {
+    name: 'Docker',
+    category: SkillCategory.DEVOPS,
+    level: SkillLevel.INTERMEDIATE,
+  },
   { name: 'Git', category: SkillCategory.DEVOPS, level: SkillLevel.ADVANCED },
-  { name: 'React', category: SkillCategory.FRONTEND, level: SkillLevel.INTERMEDIATE },
-  { name: 'Коммуникация', category: SkillCategory.SOFT_SKILLS, level: SkillLevel.ADVANCED },
+  {
+    name: 'React',
+    category: SkillCategory.FRONTEND,
+    level: SkillLevel.INTERMEDIATE,
+  },
+  {
+    name: 'Коммуникация',
+    category: SkillCategory.SOFT_SKILLS,
+    level: SkillLevel.ADVANCED,
+  },
 ];
+
+const MY_SKILLS = ['React', 'TypeScript', 'NestJS', 'GraphQL', 'Git'];
 
 async function main() {
   const profile = await prisma.profile.upsert({
@@ -49,7 +87,8 @@ async function main() {
         profileId: profile.id,
         company: 'Газпромбанк, АO',
         position: 'Senior Frontend-разработчик',
-        description: 'Дашборд для сотрудников банка, и сотрудников кол-центра для обслуживания физических и юр. лиц',
+        description:
+          'Дашборд для сотрудников банка, и сотрудников кол-центра для обслуживания физических и юр. лиц',
         startDate: new Date('2023-06-01'),
         endDate: null,
       },
@@ -57,7 +96,8 @@ async function main() {
         profileId: profile.id,
         company: 'IT_One',
         position: 'Middle Frontend-разработчик',
-        description: '"ВТБ. Личный Кабинет" - веб-приложение банка ВТБ для управления финансами',
+        description:
+          '"ВТБ. Личный Кабинет" - веб-приложение банка ВТБ для управления финансами',
         startDate: new Date('2021-06-01'),
         endDate: new Date('2023-05-31'),
       },
@@ -65,7 +105,8 @@ async function main() {
         profileId: profile.id,
         company: 'Астрал-Софт',
         position: 'Junior/Middle Frontend-разработчик',
-        description: 'веб-сервис для сдачи электронной отчетности в контролирующие органы (ФНС, СФР, Росстат)',
+        description:
+          'веб-сервис для сдачи электронной отчетности в контролирующие органы (ФНС, СФР, Росстат)',
         startDate: new Date('2019-02-01'),
         endDate: new Date('2021-06-01'),
       },
@@ -78,16 +119,28 @@ async function main() {
       update: { category },
       create: { name, category },
     });
+    if (!MY_SKILLS.includes(skill.name)) continue;
     await prisma.profileSkill.upsert({
-      where: { profileId_skillId: { profileId: profile.id, skillId: skill.id } },
+      where: {
+        profileId_skillId: { profileId: profile.id, skillId: skill.id },
+      },
       update: { level },
       create: { profileId: profile.id, skillId: skill.id, level },
     });
   }
 
-  
-  console.log('Seed completed: profile, experience, skills and projects are in place.');
-}
+   await prisma.project.createMany({ data: [
+    {
+      profileId: profile.id,
+      name: 'Цифровая визитка',
+      description:
+        'Backend-приложение «цифровая визитка»: GraphQL API с информацией о специалисте — профиль, опыт работы, навыки и проекты.',
+      techStack: ['NestJs','GraphQL', 'Apollo'],
+      repoUrl: null,
+      demoUrl: 'https://cv-api-svru.onrender.com/graphql',
+    },
+    
+   ] });   
 
 main()
   .catch((error) => {

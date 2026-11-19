@@ -22,8 +22,18 @@ const skills: { name: string; category: SkillCategory; level: SkillLevel }[] = [
 
 async function main() {
   const profile = await prisma.profile.upsert({
-    where: { email: 'ivan.ivanov@example.com' },
-    update: {},
+    where: { email: 'ale7496@gmail.com' },
+    update: {
+      fullName: 'Жоголев Антон',
+      title: 'Frontend-разработчик (React, Typescript)',
+      bio: 'Frontend-разработчик, cпециализируюсь на разработке внутренних банковских сервисов. ',
+      email: 'ale7496@gmail.com',
+      phone: '+7 (917) 752-26-04',
+      location: 'Уфа, Россия',
+      github: 'https://github.com/anthonyzhogolev',
+      linkedin: 'www.linkedin.com/in/anton-zhogolev-8739b984',
+      telegram: 'https://t.me/anthonyzhogolev',
+    },
     create: {
       fullName: 'Жоголев Антон',
       title: 'Frontend-разработчик (React, Typescript)',

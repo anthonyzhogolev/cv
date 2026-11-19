@@ -19,4 +19,7 @@ export class Project {
 
   @Field(() => String, { nullable: true })
   demoUrl: string | null;
+
+  @Field(() => Int, { nullable: true }) 
+  experienceId: number | null;
 }

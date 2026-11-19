@@ -51,6 +51,7 @@ model Experience {
   endDate     DateTime?
   profileId   Int
   profile     Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  projects Project[]
 }
 
 model Skill {
@@ -81,4 +82,6 @@ model Project {
   demoUrl     String?
   profileId   Int
   profile     Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  experienceId Int?
+  experience Experience? @relation(fields: [experienceId], references: [id], onDelete: SetNull)
 }

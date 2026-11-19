@@ -91,37 +91,73 @@ async function main() {
     prisma.project.deleteMany({ where: { profileId: profile.id } }),
   ]);
 
-  await prisma.experience.createMany({
-    data: [
-      {
-        profileId: profile.id,
-        company: 'Газпромбанк, АO',
-        position: 'Senior Frontend-разработчик',
-        description:
-          'Дашборд для сотрудников банка, и сотрудников кол-центра для обслуживания физических и юр. лиц',
-        startDate: new Date('2023-06-01'),
-        endDate: null,
-      },
-      {
-        profileId: profile.id,
-        company: 'IT_One',
-        position: 'Middle Frontend-разработчик',
-        description:
-          '"ВТБ. Личный Кабинет" - веб-приложение банка ВТБ для управления финансами',
-        startDate: new Date('2021-06-01'),
-        endDate: new Date('2023-05-31'),
-      },
-      {
-        profileId: profile.id,
-        company: 'Астрал-Софт',
-        position: 'Junior/Middle Frontend-разработчик',
-        description:
-          'веб-сервис для сдачи электронной отчетности в контролирующие органы (ФНС, СФР, Росстат)',
-        startDate: new Date('2019-02-01'),
-        endDate: new Date('2021-06-01'),
-      },
-    ],
+  const { id: gpbExpId } = await prisma.experience.create({
+    data: {
+      profileId: profile.id,
+      company: 'Газпромбанк, АO',
+      position: 'Senior Frontend-разработчик',
+      description:
+        'Дашборд для сотрудников банка, и сотрудников кол-центра для обслуживания физических и юр. лиц',
+      startDate: new Date('2023-06-01'),
+      endDate: null,
+    },
   });
+
+  const { id: itOneExpId } = await prisma.experience.create({
+    data: {
+      profileId: profile.id,
+      company: 'IT_One',
+      position: 'Middle Frontend-разработчик',
+      description:
+        '"ВТБ. Личный Кабинет" - веб-приложение банка ВТБ для управления финансами',
+      startDate: new Date('2021-06-01'),
+      endDate: new Date('2023-05-31'),
+    },
+  });
+
+  const { id: astralExpId } = await prisma.experience.create({
+    data: {
+      profileId: profile.id,
+      company: 'Астрал-Софт',
+      position: 'Junior/Middle Frontend-разработчик',
+      description:
+        'веб-сервис для сдачи электронной отчетности в контролирующие органы (ФНС, СФР, Росстат)',
+      startDate: new Date('2019-02-01'),
+      endDate: new Date('2021-06-01'),
+    },
+  });
+
+  // await prisma.experience.createMany({
+  //   data: [
+  //     {
+  //       profileId: profile.id,
+  //       company: 'Газпромбанк, АO',
+  //       position: 'Senior Frontend-разработчик',
+  //       description:
+  //         'Дашборд для сотрудников банка, и сотрудников кол-центра для обслуживания физических и юр. лиц',
+  //       startDate: new Date('2023-06-01'),
+  //       endDate: null,
+  //     },
+  //     {
+  //       profileId: profile.id,
+  //       company: 'IT_One',
+  //       position: 'Middle Frontend-разработчик',
+  //       description:
+  //         '"ВТБ. Личный Кабинет" - веб-приложение банка ВТБ для управления финансами',
+  //       startDate: new Date('2021-06-01'),
+  //       endDate: new Date('2023-05-31'),
+  //     },
+  //     {
+  //       profileId: profile.id,
+  //       company: 'Астрал-Софт',
+  //       position: 'Junior/Middle Frontend-разработчик',
+  //       description:
+  //         'веб-сервис для сдачи электронной отчетности в контролирующие органы (ФНС, СФР, Росстат)',
+  //       startDate: new Date('2019-02-01'),
+  //       endDate: new Date('2021-06-01'),
+  //     },
+  //   ],
+  // });
 
   for (const { name, category, level } of skills) {
     const skill = await prisma.skill.upsert({
@@ -149,6 +185,34 @@ async function main() {
         techStack: ['NestJs', 'GraphQL', 'Apollo'],
         repoUrl: null,
         demoUrl: 'https://cv-api-svru.onrender.com/graphql',
+      },
+      {
+        profileId: profile.id,
+        experienceId: gpbExpId,
+        name: 'Дашборд 360',
+        description:
+          'Дашборд для сотрудников банка, и сотрудников кол-центра для обслуживания физических и юр. лиц',
+      },
+      {
+        profileId: profile.id,
+        experienceId: gpbExpId,
+        name: 'МСБ',
+        description:
+          'Админ-панель для сотрудников для обслуживания малого и среднего бизнеса',
+      },
+      {
+        profileId: profile.id,
+        experienceId: itOneExpId,
+        name: 'ВТБ Онлайн',
+        description:
+          'Личный кабинет банка ВТБ',
+      },
+      {
+        profileId: profile.id,
+        experienceId: itOneExpId,
+        name: 'Реестр Углеродных единиц',
+        description:
+          'Система учета климатических проектов, углеродных единиц (УЕ) и единиц выполнения квот (ЕВК), а также операций с ними',
       },
     ],
   });

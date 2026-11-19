@@ -15,6 +15,7 @@ type Experience {
   endDate: DateTime
   id: Int!
   position: String!
+  projects: [Project!]!
   startDate: DateTime!
 }
 
@@ -44,6 +45,7 @@ type ProfileSkill {
 type Project {
   demoUrl: String
   description: String!
+  experienceId: Int
   id: Int!
   name: String!
   repoUrl: String

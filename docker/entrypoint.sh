@@ -5,7 +5,6 @@ echo "==> Applying database migrations..."
 npx prisma migrate deploy
 
 echo "==> Seeding database..."
-npx prisma migrate reset
 npx prisma db seed
 
 echo "==> Starting application..."
